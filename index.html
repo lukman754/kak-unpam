@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator KAK</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-5-theme/1.3.0/select2-bootstrap-5-theme.min.css"
+        rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f59e2d85df.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #33a1fd;
+            --secondary-blue: #e8f3ff;
+            --text-dark: #2d2d2d;
+        }
+
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #e3f2fd;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #33a1fd 0%, #2574d0 100%);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .btn-custom {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+        }
+
+        .btn-primary {
+            background-color: #40a3f2 !important;
+            border: 0;
+        }
+
+        .btn-custom:hover {
+            background-color: #2574d0;
+            color: white;
+        }
+
+        .btn-warning-custom {
+            background-color: #ffc107;
+            color: #000;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+        }
+
+        .card {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            border-bottom: none;
+        }
+
+        .form-select,
+        .form-control {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 0.5rem;
+        }
+
+        .table th {
+            color: #2196f3;
+            font-weight: 500;
+            font-size: small;
+
+        }
+
+        .table td {
+            font-size: smaller;
+
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #33a1fd 0%, #2574d0 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .isi-kuesioner-btn {
+            background-color: #33a1fd;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .isi-kuesioner-btn:hover {
+            background-color: #2574d0;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <img src="logo-unpam.png" width="50px" class="me-3" alt="">
+                <div>
+                    <h4 class="mb-0">UNIVERSITAS PAMULANG</h4>
+                    <small>Kredit Aktivitas Mahasiswa</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row g-2">
+            <!-- Selection Form -->
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Pilih Kegiatan</h5>
+                        <a class="btn btn-primary" href="SK-KAK.pdf" download="SK-KAK.pdf">
+                            Unduh SK-KAK <i class="fa-solid fa-cloud-arrow-down"></i>
+                        </a>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <select class="form-select" id="kegiatan">
+                                <option value="">Pilih Kegiatan...</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="kategori" class="form-label">Kategori</label>
+                            <select class="form-select" id="kategori" disabled>
+                                <option value="">Pilih Kategori...</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nilai" class="form-label">Nilai</label>
+                            <input type="text" class="form-control text-success fw-bold" id="nilai" readonly>
+                        </div>
+                        <button class="btn btn-custom float-end" id="tambahKegiatan" disabled>Tambah ke List</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selected Activities List -->
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">List Kegiatan yang Diikuti</h5>
+                        <button class="btn btn-success" id="printTable">Cetak <i class="fa-solid fa-image"></i></button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table" id="listTable">
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>KEGIATAN</th>
+                                        <th>KATEGORI</th>
+                                        <th>POINT</th>
+                                        <th>AKSI</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="listKegiatan"></tbody>
+                                <tfoot>
+                                    <tr class="fw-bold">
+                                        <td colspan="3" class="text-end">Total Point:</td>
+                                        <td colspan="2" id="totalNilai">0</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container text-center">
+            <div class="social-icons">
+                <a href="https://github.com/Lukman754" target="_blank"
+                    style="margin: 0 10px; color: white; text-decoration: none;">
+                    <i class="fab fa-github fa-lg"></i>
+                </a>
+                <a href="https://facebook.com/lukman-mauludin-754" target="_blank"
+                    style="margin: 0 10px; color: white; text-decoration: none;">
+                    <i class="fab fa-facebook fa-lg"></i>
+                </a>
+                <a href="https://instagram.com/_.chopin" target="_blank"
+                    style="margin: 0 10px; color: white; text-decoration: none;">
+                    <i class="fab fa-instagram fa-lg"></i>
+                </a>
+            </div>
+            <p style="margin-top: 10px;">© 2024 Lukman Muludin</p>
+        </div>
+    </div>
+
+    <!-- Add FontAwesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
+    <!-- Alert Modal -->
+    <div class="modal fade" id="alertModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Peringatan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Mohon tambahkan kegiatan terlebih dahulu
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script type="module">
+        import { kakData } from './data.js';
+
+        // Initialize variables
+        let selectedActivities = [];
+        let alertModal;
+
+        // Initialize modal
+        document.addEventListener('DOMContentLoaded', function() {
+            alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+        });
+
+        // Initialize Select2 for kegiatan dropdown with numbered options
+        $(document).ready(function() {
+            const kegiatanSelect = $('#kegiatan');
+
+            // Create numbered options
+            const options = kakData.reduce((unique, item) => {
+                const exists = unique.find(u => u.Kegiatan.Nama === item.Kegiatan.Nama);
+                if (!exists) {
+                    unique.push(item);
+                }
+                return unique;
+            }, []).map((item, index) => ({
+                id: item.Kegiatan.Nama,
+                text: `${index + 1}. ${item.Kegiatan.Nama}`
+            }));
+
+            // Initialize Select2
+            kegiatanSelect.select2({
+                theme: 'bootstrap-5',
+                data: options,
+                placeholder: 'Cari atau pilih kegiatan...',
+                allowClear: true,
+                width: '100%'
+            });
+
+            // Event listener for kegiatan change
+            kegiatanSelect.on('change', updateKategori);
+        });
+
+        // Event Listeners
+        document.getElementById('kategori').addEventListener('change', updateNilai);
+        document.getElementById('tambahKegiatan').addEventListener('click', tambahKegiatan);
+        document.getElementById('printTable').addEventListener('click', printTableToImage);
+
+        function updateKategori() {
+            const kategoriSelect = document.getElementById('kategori');
+            const selectedKegiatan = $('#kegiatan').val();
+
+            if (!selectedKegiatan) {
+                kategoriSelect.innerHTML = '<option value="">Pilih Kategori...</option>';
+                kategoriSelect.disabled = true;
+                return;
+            }
+
+            kategoriSelect.disabled = false;
+            kategoriSelect.innerHTML = '<option value="">Pilih Kategori...</option>';
+
+            const categories = kakData
+                .filter(item => item.Kegiatan.Nama === selectedKegiatan)
+                .map(item => item.Kegiatan.Kategori);
+
+            categories.forEach(category => {
+                if (category) {
+                    const option = document.createElement('option');
+                    option.value = category;
+                    option.textContent = category;
+                    kategoriSelect.appendChild(option);
+                }
+            });
+
+            document.getElementById('nilai').value = '';
+            document.getElementById('tambahKegiatan').disabled = true;
+        }
+
+        function updateNilai() {
+            const selectedKegiatan = $('#kegiatan').val();
+            const selectedKategori = document.getElementById('kategori').value;
+            const nilaiInput = document.getElementById('nilai');
+
+            const activity = kakData.find(item =>
+                item.Kegiatan.Nama === selectedKegiatan &&
+                (!item.Kegiatan.Kategori || item.Kegiatan.Kategori === selectedKategori)
+            );
+
+            if (activity) {
+                nilaiInput.value = activity.Nilai;
+                document.getElementById('tambahKegiatan').disabled = false;
+            } else {
+                nilaiInput.value = '';
+                document.getElementById('tambahKegiatan').disabled = true;
+            }
+        }
+
+        function tambahKegiatan() {
+            const kegiatan = $('#kegiatan').val();
+            const kategori = document.getElementById('kategori').value;
+            const nilai = document.getElementById('nilai').value;
+
+            if (kegiatan && nilai) {
+                selectedActivities.push({
+                    kegiatan,
+                    kategori,
+                    nilai: parseInt(nilai)
+                });
+                updateListKegiatan();
+                resetForm();
+            }
+        }
+
+        function hapusKegiatan(index) {
+            selectedActivities.splice(index, 1);
+            updateListKegiatan();
+        }
+
+        function updateListKegiatan() {
+            const listKegiatan = document.getElementById('listKegiatan');
+            const totalNilai = document.getElementById('totalNilai');
+
+            listKegiatan.innerHTML = '';
+            let total = 0;
+
+            selectedActivities.forEach((activity, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${activity.kegiatan}</td>
+                    <td>${activity.kategori || '-'}</td>
+                    <td><span class='fw-bold text-success bg-success-subtle px-2 rounded-pill small'>${activity.nilai}</span></td>
+                    <td>
+                        <button class="btn btn-sm" data-index="${index}">
+                            <i class="fa-solid fa-delete-left text-danger small"></i>
+                        </button>
+                    </td>
+                `;
+                listKegiatan.appendChild(row);
+
+                row.querySelector('button').addEventListener('click', function() {
+                    hapusKegiatan(index);
+                });
+
+                total += activity.nilai;
+            });
+
+            totalNilai.textContent = `${total}`;
+        const predikat = document.createElement('tr');
+        let predikatText = '';
+        let badgeClass = '';
+        let emote = '';
+
+        if (total > 200) {
+            predikatText = 'Unggul';
+            badgeClass = 'bg-primary';
+            emote = '😃';
+        } else if (total >= 100) {
+            predikatText = 'Sangat Baik';
+            badgeClass = 'bg-success';
+            emote = '😊';
+        } else if (total >= 50) {
+            predikatText = 'Baik';
+            badgeClass = 'bg-warning';
+            emote = '🙂';
+        } else {
+            predikatText = 'Kurang';
+            badgeClass = 'bg-danger';
+            emote = '😟';
+        }
+
+        predikat.innerHTML = `
+            <td colspan="3" class="text-end fw-bold">Predikat:</td>
+            <td colspan="2">
+                <span class="badge ${badgeClass}">${predikatText} ${emote}</span>
+            </td>
+        `;
+        listKegiatan.appendChild(predikat);
+        }
+
+        function resetForm() {
+            $('#kegiatan').val(null).trigger('change');
+            document.getElementById('kategori').innerHTML = '<option value="">Pilih Kategori...</option>';
+            document.getElementById('kategori').disabled = true;
+            document.getElementById('nilai').value = '';
+            document.getElementById('tambahKegiatan').disabled = true;
+        }
+
+        async function printTableToImage() {
+            // Check if there are any activities
+            if (selectedActivities.length === 0) {
+                alertModal.show();
+                return;
+            }
+            
+            const table = document.getElementById('listTable');
+            
+            try {
+                // Create canvas from table
+                const canvas = await html2canvas(table, {
+                    backgroundColor: '#ffffff',
+                    scale: 2 // Higher quality
+                });
+
+                // Convert to image and download
+                const image = canvas.toDataURL('image/jpeg', 1.0);
+                const link = document.createElement('a');
+                link.download = 'KAK_Kegiatan.jpg';
+                link.href = image;
+                link.click();
+            } catch (error) {
+                console.error('Error generating image:', error);
+                alert('Terjadi kesalahan saat membuat gambar. Silakan coba lagi.');
+            }
+        }
+
+       
+    </script>
+
+</body>
+
+</html>
