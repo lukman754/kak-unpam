@@ -1,4 +1,3 @@
-KAK Unpam: A Simplified Point Calculator for Universitas Pamulang Students
 What is KAK Unpam?
 KAK Unpam is a web application designed to streamline the process of calculating Kredit Aktivitas Kemahasiswaan (KAK) points for Universitas Pamulang students. This tool helps students easily track and tally their involvement in various extracurricular activities, as outlined in the university's guidelines.
 Purpose:
