@@ -13,125 +13,327 @@
     <script src="https://kit.fontawesome.com/f59e2d85df.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#4f46e5">
     <style>
         :root {
-            --primary-blue: #33a1fd;
-            --secondary-blue: #e8f3ff;
-            --text-dark: #2d2d2d;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: #eef2ff;
+            --secondary: #6b7280;
+            --border: #e5e7eb;
+            --background: #f9fafb;
+            --card-bg: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius-sm: 0.375rem;
+            --radius: 0.5rem;
+            --radius-lg: 0.75rem;
         }
 
         * {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
-            background-color: #e3f2fd;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .header {
-            background: linear-gradient(135deg, #33a1fd 0%, #2574d0 100%);
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
             padding: 1rem 0;
-            margin-bottom: 2rem;
-            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.8);
         }
 
-        .btn-custom {
-            background-color: var(--primary-blue);
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            width: 100%;
+        }
+
+        .disclaimer-banner {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            padding: 0.75rem 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(79, 70, 229, 0.2);
+        }
+
+        .disclaimer-banner p {
+            margin: 0;
+            max-width: 65ch;
+            margin: 0 auto;
+        }
+
+        .btn-custom, .btn-primary {
+            background-color: var(--primary);
             color: white;
-            border: none;
-            padding: 0.5rem 1.5rem;
+            border: 1px solid var(--primary);
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-custom:hover, .btn-primary:hover {
+            background-color: var(--primary-hover);
+            color: white;
+            border-color: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-custom:active, .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+            border: 1px solid var(--success);
+            padding: 0.5rem 1.25rem;
             border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .btn-primary {
-            background-color: #40a3f2 !important;
-            border: 0;
-        }
-
-        .btn-custom:hover {
-            background-color: #2574d0;
+        .btn-success:hover {
+            background-color: #047857;
+            border-color: #047857;
             color: white;
-        }
-
-        .btn-warning-custom {
-            background-color: #ffc107;
-            color: #000;
-            border: none;
-            padding: 0.5rem 1.5rem;
-            border-radius: 6px;
         }
 
         .card {
-            border-radius: 10px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
             overflow: hidden;
+            transition: all 0.2s ease;
+            height: 100%;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
         }
 
         .card-header {
-            border-bottom: none;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--card-bg);
         }
 
-        .form-select,
-        .form-control {
-            border: 1px solid #e0e0e0;
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .form-select, .form-control {
+            width: 100%;
+            padding: 0.625rem 0.875rem;
+            border: 1px solid var(--border);
             border-radius: 6px;
-            padding: 0.5rem;
+            background-color: var(--background);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-select:focus, .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
         }
 
         .table th {
-            color: #2196f3;
-            font-weight: 500;
-            font-size: small;
-
+            text-align: left;
+            padding: 1rem 1.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background-color: var(--primary-light);
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
         }
 
         .table td {
-            font-size: smaller;
+            padding: 1rem 1.25rem;
+            font-size: 0.875rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
 
+        .table tbody tr:last-child td {
+            border-bottom: none;
         }
 
         .footer {
-            background: linear-gradient(135deg, #33a1fd 0%, #2574d0 100%);
-            color: white;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
             padding: 2rem 0;
-            margin-top: 2rem;
+            margin-top: auto;
         }
 
-        .isi-kuesioner-btn {
-            background-color: #33a1fd;
-            color: white;
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-icons a {
+            color: var(--text-secondary);
+            transition: color 0.2s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary);
+        }
+
+        .text-success {
+            color: var(--success);
+            background-color: var(--success-bg);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 0.75rem;
+        }
+
+        .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            background: none;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-size: 0.9rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
         }
 
-        .isi-kuesioner-btn:hover {
-            background-color: #2574d0;
-            color: white;
+        .btn-sm:hover {
+            color: var(--danger);
+            background-color: var(--danger-bg);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            flex: 1;
+        }
+
+        .mb-3 {
+            margin-bottom: 1rem;
+        }
+
+        .text-end {
+            text-align: right;
+        }
+
+        .float-end {
+            float: right;
+        }
+
+        .small {
+            font-size: 0.75rem;
+        }
+
+        .fw-bold {
+            font-weight: 600;
         }
     </style>
 </head>
 
 <body>
     <!-- Header -->
+    <div class="disclaimer-banner">
+        <p><strong>Peringatan:</strong> Program ini hanya sebagai simulasi untuk menghitung point KAK berdasarkan luaran yang sudah diupload ke SISPEMA oleh mahasiswa dan sudah divalidasi. Hasil perhitungan bersifat simulasi dan tidak menggantikan validasi resmi dari universitas.</p>
+    </div>
     <div class="header">
         <div class="container">
-            <div class="d-flex align-items-center">
-                <img src="logo-unpam.png" width="50px" class="me-3" alt="">
+            <div style="display: flex; align-items: center;">
+                <img src="logo-unpam.png" width="40" height="40" class="me-3" alt="Logo UNPAM" style="border-radius: 8px;">
                 <div>
-                    <h4 class="mb-0">UNIVERSITAS PAMULANG</h4>
-                    <small>Kredit Aktivitas Mahasiswa</small>
+                    <div style="font-size: 1.25rem; font-weight: 600; line-height: 1.2;">UNIVERSITAS PAMULANG</div>
+                    <div style="font-size: 0.875rem; color: var(--text-secondary);">Kredit Aktivitas Mahasiswa</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container">
-        <div class="row g-2">
+    <div class="container" style="padding-top: 1rem; padding-bottom: 4rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
             <!-- Selection Form -->
-            <div class="col-lg-6">
+            <div>
                 <div class="card border-0 shadow-sm">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-0">Pilih Kegiatan</h5>
@@ -162,7 +364,7 @@
             </div>
 
             <!-- Selected Activities List -->
-            <div class="col-lg-6">
+            <div>
                 <div class="card border-0 shadow-sm">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-0">List Kegiatan yang Diikuti</h5>
@@ -197,22 +399,21 @@
 
     <!-- Footer -->
     <div class="footer">
-        <div class="container text-center">
+        <div class="container" style="text-align: center;">
             <div class="social-icons">
-                <a href="https://github.com/Lukman754" target="_blank"
-                    style="margin: 0 10px; color: white; text-decoration: none;">
+                <a href="https://github.com/Lukman754" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-github fa-lg"></i>
                 </a>
-                <a href="https://facebook.com/lukman-mauludin-754" target="_blank"
-                    style="margin: 0 10px; color: white; text-decoration: none;">
+                <a href="https://facebook.com/lukman-mauludin-754" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-facebook fa-lg"></i>
                 </a>
-                <a href="https://instagram.com/_.chopin" target="_blank"
-                    style="margin: 0 10px; color: white; text-decoration: none;">
+                <a href="https://instagram.com/_.chopin" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-instagram fa-lg"></i>
                 </a>
             </div>
-            <p style="margin-top: 10px;">© 2024 Lukman Muludin</p>
+            <div style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--text-secondary);">
+                © 2024 Lukman Muludin
+            </div>
         </div>
     </div>
 
